@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import * as z from "zod";
 
-const TRIGGER_API_URL = "https://trigger.innoft.link/api/v1/tasks/send-whatsapp-greeting/trigger";
-const TRIGGER_PROD_KEY = "tr_prod_HNAYWhl2MpQ5DheVHgr1";
+const TRIGGER_API_URL = process.env.TRIGGER_API_URL!;
+const TRIGGER_PROD_KEY = process.env.TRIGGER_PROD_KEY!;
 
 const formSchema = z.object({
   prenom: z.string().min(2),
