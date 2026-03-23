@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+:root {
+  /* Backgrounds */
+  --bg-cream: #FAF7F2;
+  --bg-sand: #F0EBE3;
+  --bg-navy: #0F1B2D;
+
+  /* Text */
+  --text-dark: #1B2A3D;
+  --text-body: #4A5568;
+  --text-light: #F0EBE3;
+  --text-muted: #718096;
+
+  /* Accent — Warm Amber */
+  --accent: #D4940A;
+  --accent-hover: #B37A08;
+  --accent-light: #F5E6C8;
+
+  /* Semantic */
+  --success: #5B8C5A;
+  --urgency: #C75B39;
+
+  /* Borders & Shadows */
+  --border-light: rgba(27, 42, 61, 0.08);
+  --shadow-soft: 0 4px 24px rgba(27, 42, 61, 0.06);
+  --shadow-card: 0 8px 32px rgba(27, 42, 61, 0.08);
+
+  /* Radii */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+}
+
+@theme inline {
+  --color-bg-cream: var(--bg-cream);
+  --color-bg-sand: var(--bg-sand);
+  --color-bg-navy: var(--bg-navy);
+  --color-text-dark: var(--text-dark);
+  --color-text-body: var(--text-body);
+  --color-text-light: var(--text-light);
+  --color-text-muted: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-light: var(--accent-light);
+  --color-success: var(--success);
+  --color-urgency: var(--urgency);
+  --font-sans: "Source Sans 3", system-ui, sans-serif;
+  --font-display: "Playfair Display", Georgia, serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-cream);
+  color: var(--text-body);
+  font-family: "Source Sans 3", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Selection — amber accent */
+::selection {
+  background: rgba(212, 148, 10, 0.25);
+  color: var(--text-dark);
+}
+
+/* Amber underline highlight for key phrases */
+.highlight-amber {
+  background: linear-gradient(to bottom, transparent 65%, var(--accent-light) 65%);
+  padding: 0 0.15em;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(27, 42, 61, 0.15);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(27, 42, 61, 0.3);
+}
