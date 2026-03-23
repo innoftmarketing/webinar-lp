@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import * as z from "zod";
 
 const formSchema = z.object({
-  fullName: z.string().min(2),
+  prenom: z.string().min(2),
+  nom: z.string().min(2),
   email: z.string().email(),
   whatsapp: z.string().min(10),
   aiLevel: z.string().min(1),
@@ -10,7 +11,8 @@ const formSchema = z.object({
 });
 
 async function sendToGoogleAppsScript(
-  fullName: string,
+  nom: string,
+  prenom: string,
   email: string,
   whatsapp: string,
   aiLevel: string,
@@ -22,14 +24,15 @@ async function sendToGoogleAppsScript(
     return { success: false, error: "Missing GOOGLE_SCRIPT_URL" };
   }
 
-  // Send as POST with form data — Google returns a 302 redirect
   const formData = new URLSearchParams();
-  formData.append("fullName", fullName);
+  formData.append("nom", nom);
+  formData.append("prenom", prenom);
   formData.append("email", email);
   formData.append("phone", whatsapp);
   formData.append("aiLevel", aiLevel);
   formData.append("whyLearnAI", whyLearnAI || "");
   formData.append("timestamp", new Date().toLocaleString("fr-FR"));
+  formData.append("source", "Webinar LP");
 
   // Step 1: POST to script URL — do NOT follow redirect (it drops the body)
   const postResponse = await fetch(scriptUrl, {
@@ -57,7 +60,6 @@ async function sendToGoogleAppsScript(
         return { success: true };
       }
     } catch {
-      // Response wasn't JSON but status was OK
       if (getResponse.status >= 200 && getResponse.status < 400) {
         return { success: true };
       }
@@ -66,7 +68,6 @@ async function sendToGoogleAppsScript(
     return { success: false, error: `Script returned: ${responseText}` };
   }
 
-  // No redirect — check direct response
   if (postResponse.status >= 200 && postResponse.status < 400) {
     return { success: true };
   }
@@ -86,10 +87,11 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { fullName, email, whatsapp, aiLevel, whyLearnAI } = result.data;
+    const { nom, prenom, email, whatsapp, aiLevel, whyLearnAI } = result.data;
 
     const scriptResult = await sendToGoogleAppsScript(
-      fullName,
+      nom,
+      prenom,
       email,
       whatsapp,
       aiLevel,

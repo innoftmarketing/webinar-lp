@@ -8,7 +8,8 @@ import * as z from "zod";
 import { Loader2, AlertCircle, Lock } from "lucide-react";
 
 const formSchema = z.object({
-  fullName: z.string().min(2, "Le nom doit contenir au moins 2 caractères"),
+  prenom: z.string().min(2, "Le prénom doit contenir au moins 2 caractères"),
+  nom: z.string().min(2, "Le nom doit contenir au moins 2 caractères"),
   email: z.string().email("Veuillez entrer un email valide"),
   whatsapp: z.string().min(10, "Le numéro WhatsApp doit être valide"),
   aiLevel: z.string().min(1, "Veuillez sélectionner votre niveau"),
@@ -27,7 +28,6 @@ export function RegistrationForm() {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
   });
@@ -71,21 +71,38 @@ export function RegistrationForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-      {/* Full Name */}
-      <div className="space-y-1.5">
-        <label htmlFor="fullName" className="text-sm font-semibold text-text-dark">
-          Prénom et Nom
-        </label>
-        <input
-          {...register("fullName")}
-          type="text"
-          id="fullName"
-          placeholder="Ahmed Bennani"
-          className={inputClasses}
-        />
-        {errors.fullName && (
-          <span className="text-sm text-urgency">{errors.fullName.message}</span>
-        )}
+      {/* Prénom + Nom side by side */}
+      <div className="grid grid-cols-2 gap-4">
+        <div className="space-y-1.5">
+          <label htmlFor="prenom" className="text-sm font-semibold text-text-dark">
+            Prénom
+          </label>
+          <input
+            {...register("prenom")}
+            type="text"
+            id="prenom"
+            placeholder="Ahmed"
+            className={inputClasses}
+          />
+          {errors.prenom && (
+            <span className="text-sm text-urgency">{errors.prenom.message}</span>
+          )}
+        </div>
+        <div className="space-y-1.5">
+          <label htmlFor="nom" className="text-sm font-semibold text-text-dark">
+            Nom
+          </label>
+          <input
+            {...register("nom")}
+            type="text"
+            id="nom"
+            placeholder="Bennani"
+            className={inputClasses}
+          />
+          {errors.nom && (
+            <span className="text-sm text-urgency">{errors.nom.message}</span>
+          )}
+        </div>
       </div>
 
       {/* Email */}
