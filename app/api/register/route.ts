@@ -31,7 +31,6 @@ async function sendToGoogleAppsScript(
   formData.append("phone", whatsapp);
   formData.append("aiLevel", aiLevel);
   formData.append("whyLearnAI", whyLearnAI || "");
-  formData.append("timestamp", new Date().toLocaleString("fr-FR"));
   formData.append("source", "Webinar LP");
 
   // Step 1: POST to script URL — do NOT follow redirect (it drops the body)
